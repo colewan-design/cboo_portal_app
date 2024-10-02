@@ -13,7 +13,7 @@ class EmployeePayScreen extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            expandedHeight: 100,
+            expandedHeight: 50,
             forceElevated: true,
             floating: true,
             leading: IconButton(
@@ -26,11 +26,16 @@ class EmployeePayScreen extends StatelessWidget {
               },
               icon: Icon(
                 Ionicons.arrow_back,
-                size: 30,
               ),
             ),
             flexibleSpace: FlexibleSpaceBar(
-              title: Text("My Payments"),
+              title: Text(
+                "My Payments",
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               centerTitle: true,
             ),
           ),

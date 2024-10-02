@@ -1,6 +1,8 @@
+import 'package:cboo_portal_app/screens/navigation_screen.dart';
 import 'package:cboo_portal_app/widgets/rounded_circular_button.dart';
 import 'package:cboo_portal_app/widgets/rounded_text_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 class RecoveryScreen extends StatefulWidget {
   const RecoveryScreen({super.key});
@@ -24,23 +26,34 @@ class RecoveryScreenState extends State<RecoveryScreen> {
         255,
         1.0,
       ),
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Ionicons.arrow_back),
+        ),
+        leadingWidth: 80,
+      ),
       body: _buildUI(),
     );
   }
 
   Widget _buildUI() {
-    return Column(
-      children: [
-        _header(),
-        _newAccountForm(),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          _header(),
+          _resetAccountForm(),
+        ],
+      ),
     );
   }
 
   Widget _header() {
     return Container(
       width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height * 0.25,
+      height: MediaQuery.of(context).size.height * 0.20,
       color: const Color.fromRGBO(230, 253, 253, 1.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -55,7 +68,7 @@ class RecoveryScreenState extends State<RecoveryScreen> {
     );
   }
 
-  Widget _newAccountForm() {
+  Widget _resetAccountForm() {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height * 0.75,
@@ -77,6 +90,8 @@ class RecoveryScreenState extends State<RecoveryScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                Text(
+                    "Please enter the reset code sent to your registered email account, and type in your new password."),
                 _formFields(),
                 _bottomButtons(),
               ],
@@ -89,10 +104,10 @@ class RecoveryScreenState extends State<RecoveryScreen> {
 
   Widget _formFields() {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.20,
+      height: MediaQuery.of(context).size.height * 0.25,
       child: Column(
         mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           const RoundedTextFormField(
@@ -123,8 +138,22 @@ class RecoveryScreenState extends State<RecoveryScreen> {
         SizedBox(
           width: MediaQuery.of(context).size.width * 0.80,
           height: MediaQuery.of(context).size.height * 0.06,
-          child: const RoundedCircularButton(
+          child: RoundedCircularButton(
             text: "Reset Password",
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => NavigationScreen(),
+                ),
+              );
+            }, // Add this onPressed callback
+          ),
+        ),
+        const Padding(
+          padding: EdgeInsets.only(
+            top: 20,
+            bottom: 30,
           ),
         ),
       ],

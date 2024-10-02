@@ -2,14 +2,14 @@ import 'package:cboo_portal_app/widgets/edit_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
-class EditAccountScreen extends StatefulWidget {
-  const EditAccountScreen({super.key});
+class ProfileEditScreen extends StatefulWidget {
+  const ProfileEditScreen({super.key});
 
   @override
-  State<EditAccountScreen> createState() => _EditAccountScreenState();
+  State<ProfileEditScreen> createState() => _ProfileEditScreenState();
 }
 
-class _EditAccountScreenState extends State<EditAccountScreen> {
+class _ProfileEditScreenState extends State<ProfileEditScreen> {
   String gender = "man";
   @override
   Widget build(BuildContext context) {

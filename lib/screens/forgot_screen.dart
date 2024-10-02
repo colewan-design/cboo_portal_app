@@ -1,5 +1,6 @@
+import 'package:cboo_portal_app/screens/recovery_screen.dart';
+import 'package:cboo_portal_app/widgets/rounded_circular_button.dart';
 import 'package:cboo_portal_app/widgets/rounded_text_form_field.dart';
-import 'package:cboo_portal_app/widgets/send_request_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
@@ -127,12 +128,20 @@ class ForgotScreenState extends State<ForgotScreen> {
         SizedBox(
           width: MediaQuery.of(context).size.width * 0.80,
           height: MediaQuery.of(context).size.height * 0.06,
-          child: const SendRequestButton(
+          child: RoundedCircularButton(
             text: "Send Request",
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => RecoveryScreen(),
+                ),
+              );
+            }, // Add this onPressed callback
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(
+        const Padding(
+          padding: EdgeInsets.only(
             top: 20,
             bottom: 30,
           ),

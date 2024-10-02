@@ -1,4 +1,5 @@
 import 'package:cboo_portal_app/screens/forgot_screen.dart';
+import 'package:cboo_portal_app/screens/navigation_screen.dart';
 import 'package:cboo_portal_app/screens/signup_screen.dart';
 import 'package:cboo_portal_app/widgets/rounded_circular_button.dart';
 import 'package:cboo_portal_app/widgets/rounded_text_form_field.dart';
@@ -136,8 +137,16 @@ class _LoginScreenState extends State<LoginScreen> {
         SizedBox(
           width: MediaQuery.of(context).size.width * 0.80,
           height: MediaQuery.of(context).size.height * 0.06,
-          child: const RoundedCircularButton(
-            text: "Sign In",
+          child: RoundedCircularButton(
+            text: "Login",
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => NavigationScreen(),
+                ),
+              );
+            }, // Add this onPressed callback
           ),
         ),
         Padding(

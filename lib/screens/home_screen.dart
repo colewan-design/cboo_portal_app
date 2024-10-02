@@ -1,4 +1,4 @@
-import 'package:cboo_portal_app/screens/employee_details_screen.dart';
+import 'package:cboo_portal_app/screens/activity_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Today",
+                      "Morning, BSU",
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
@@ -37,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: 5,
                     ),
                     Text(
-                      "Goodmorning, BSU!",
+                      "1 October 2024",
                       style: TextStyle(
                         color: Colors.black38,
                       ),
@@ -48,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 50,
                   width: 50,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
+                    borderRadius: BorderRadius.circular(30),
                     color: Theme.of(context).colorScheme.secondary,
                     image: DecorationImage(
                       image: AssetImage("images/user1.jpg"),
@@ -59,63 +59,29 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
           ),
-          SizedBox(
-            height: 20,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: SizedBox(
-              height: 50,
-              child: TextField(
-                decoration: InputDecoration(
-                  enabled: false,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(25),
-                    borderSide: BorderSide.none,
-                  ),
-                  prefixIcon: Icon(
-                    Feather.search,
-                    color: Colors.black,
-                    size: 25,
-                  ),
-                  fillColor: Colors.grey[200],
-                  filled: true,
-                ),
-              ),
-            ),
-          ),
+
           SizedBox(
             height: 30,
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: Text(
-              "Data Summary",
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 30,
-          ),
+          // Usage in your Row
+
           SizedBox(
             height: 130,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
+            child: Row(
+              mainAxisAlignment:
+                  MainAxisAlignment.center, // Center the children
               children: [
-                SizedBox(
-                  width: 20,
+                SizedBox(width: 20), // Optional padding on the left
+                Expanded(
+                  child: homeCard("Payslips", 12, "records",
+                      Theme.of(context).colorScheme.secondary, "🖥️"),
                 ),
-                homeCard("Payslips", 12, "records",
-                    Theme.of(context).colorScheme.secondary, "🖥️"),
-                homeCard("Deductions", 5, "records",
-                    Theme.of(context).colorScheme.secondary, "🖥️"),
-                homeCard("Contributions", 12, "records",
-                    Theme.of(context).colorScheme.secondary, "🖥️"),
-                homeCard("Contributions", 12, "records",
-                    Theme.of(context).colorScheme.secondary, "🖥️"),
+                SizedBox(width: 20), // Space between cards
+                Expanded(
+                  child: homeCard("Deductions", 5, "records",
+                      Theme.of(context).colorScheme.secondary, "🖥️"),
+                ),
+                SizedBox(width: 20), // Optional padding on the right
               ],
             ),
           ),
@@ -125,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: Text(
-              "BSU Employees",
+              "Recent Activities",
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
@@ -140,17 +106,17 @@ class _HomeScreenState extends State<HomeScreen> {
             physics: NeverScrollableScrollPhysics(),
             padding: EdgeInsets.symmetric(horizontal: 20),
             children: [
-              usersWorkedWith(
-                "Erap Estrada",
-                "images/user2.jpg",
+              recentActivitiesList(
+                "Mid Year Bonus",
+                Icons.star_half_outlined, // Replace with your chosen icon
                 Colors.blueAccent,
-                "Developer",
+                "15 May 2024",
               ),
-              usersWorkedWith(
-                "Bong Mar",
-                "images/user3.jpg",
+              recentActivitiesList(
+                "Payslip",
+                Icons.payment, // Replace with your chosen icon
                 Colors.redAccent,
-                "Developer",
+                "23 September 2024",
               ),
             ],
           )
@@ -159,31 +125,36 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget usersWorkedWith(
-      String name, String image, Color color, String jobTitle) {
+  Widget recentActivitiesList(
+      String name,
+      IconData iconData, // Change this line
+      Color color,
+      String typeTitle) {
     return Padding(
       padding: EdgeInsets.only(bottom: 20),
       child: InkWell(
         onTap: () {
-          String _job;
+          String _type;
           if (color == Colors.blueAccent) {
-            _job = "Developer";
+            _type = "Mid Year Bonus";
           } else if (color == Colors.redAccent) {
-            _job = "Engineer";
+            _type = "Payslip";
           } else if (color == Colors.orangeAccent) {
-            _job = "Designer";
+            _type = "Clothing Allowance";
           } else {
-            _job = "Unknown"; // Default value or a fallback option
+            _type = "Unknown"; // Default value or a fallback option
           }
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => EmployeeDetailsScreen(
+              builder: (context) => ActivityDetailsScreen(
                 name: name,
-                image: image,
+                // Pass an icon name instead of an image
+                iconData:
+                    iconData, // You can keep it empty or modify ActivityDetailsScreen accordingly
                 color: color,
-                job: _job,
-                jobTitle: jobTitle,
+                type: _type,
+                typeTitle: typeTitle,
               ),
             ),
           );
@@ -201,11 +172,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 45,
                 width: 45,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: Colors.blueAccent,
-                  image: DecorationImage(
-                    image: AssetImage(image),
-                    fit: BoxFit.cover,
+                  borderRadius: BorderRadius.circular(30),
+                  color: Colors.white,
+                ),
+                child: Center(
+                  child: Icon(
+                    iconData, // Use the icon data here
+                    size: 30, // Adjust the size as needed
+                    color: color,
                   ),
                 ),
               ),
@@ -217,7 +191,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               subtitle: Text(
-                jobTitle,
+                typeTitle,
                 style: TextStyle(color: Colors.black54),
               ),
               trailing: Container(
@@ -226,15 +200,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 decoration: BoxDecoration(
                   color: color.withAlpha(10),
                   borderRadius: BorderRadius.circular(10),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.all(4),
-                  child: Center(
-                    child: Icon(
-                      FontAwesome5Regular.edit,
-                      size: 20,
-                    ),
-                  ),
                 ),
               ),
             ),
@@ -249,44 +214,68 @@ class _HomeScreenState extends State<HomeScreen> {
     return Padding(
       padding: EdgeInsets.only(right: 20),
       child: Container(
-        width: 150,
+        height: 130, // Set a fixed height or minimum height for consistency
         decoration: BoxDecoration(
-          color: color.withAlpha(20),
-          borderRadius: BorderRadius.circular(20),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10), // Round corners
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withAlpha(10),
+              spreadRadius: 1,
+              blurRadius: 5,
+              offset: Offset(0, 3), // Shadow position
+            ),
+          ],
         ),
         child: Padding(
-          padding: EdgeInsets.all(15),
+          padding: EdgeInsets.symmetric(
+              vertical: 10, horizontal: 10), // Adjusted padding
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment:
+                MainAxisAlignment.center, // Center contents vertically
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                height: 30,
-                width: 30,
-                decoration: BoxDecoration(
-                  color: Colors.white.withAlpha(50),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Center(
-                  child: Text(
-                    emoji,
-                    style: TextStyle(fontSize: 18),
+              Row(
+                children: [
+                  Container(
+                    height: 30,
+                    width: 30,
+                    decoration: BoxDecoration(
+                      color: Colors.white.withAlpha(50),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Center(
+                      child: Text(
+                        emoji,
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 8), // Space between emoji and text
+                  Expanded(
+                    child: Text(
+                      name,
+                      style: TextStyle(
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              // number
+              SizedBox(height: 5), // Space between rows
+              Center(
+                child: Text(
+                  number.toString() + " " + title,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
                   ),
                 ),
               ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                name,
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
+              // number
+              SizedBox(height: 5), // Space between rows
               Text(
                 number.toString() + " " + title,
                 style: TextStyle(

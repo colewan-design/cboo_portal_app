@@ -1,4 +1,4 @@
-import 'package:cboo_portal_app/screens/edit_screen.dart';
+import 'package:cboo_portal_app/screens/profile_edit_screen.dart';
 import 'package:cboo_portal_app/screens/login_screen.dart';
 import 'package:cboo_portal_app/screens/navigation_screen.dart';
 import 'package:cboo_portal_app/widgets/forward_button.dart';
@@ -7,14 +7,14 @@ import 'package:cboo_portal_app/widgets/settings_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
-class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+class SettingsScreen extends StatefulWidget {
+  const SettingsScreen({super.key});
 
   @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
+  State<SettingsScreen> createState() => _SettingsScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _SettingsScreenState extends State<SettingsScreen> {
   bool isDarkMode = false;
   @override
   Widget build(BuildContext context) {
@@ -31,6 +31,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
           icon: Icon(Ionicons.arrow_back),
         ),
         leadingWidth: 80,
+        flexibleSpace: FlexibleSpaceBar(
+          title: Text(
+            "Settings",
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          centerTitle: true,
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -38,16 +48,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "Settings",
-                style: TextStyle(
-                  fontSize: 36,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(
-                height: 40,
-              ),
               Text(
                 "Account",
                 style: TextStyle(
@@ -103,7 +103,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => EditAccountScreen(),
+                                builder: (context) => ProfileEditScreen(),
                               ));
                         },
                       ),

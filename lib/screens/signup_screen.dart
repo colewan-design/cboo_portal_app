@@ -1,4 +1,5 @@
 import 'package:cboo_portal_app/screens/login_screen.dart';
+import 'package:cboo_portal_app/screens/navigation_screen.dart';
 import 'package:cboo_portal_app/widgets/rounded_circular_button.dart';
 import 'package:cboo_portal_app/widgets/rounded_text_form_field.dart';
 import 'package:flutter/material.dart';
@@ -119,8 +120,16 @@ class SignupScreenState extends State<SignupScreen> {
         SizedBox(
           width: MediaQuery.of(context).size.width * 0.80,
           height: MediaQuery.of(context).size.height * 0.06,
-          child: const RoundedCircularButton(
+          child: RoundedCircularButton(
             text: "Request Account",
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => NavigationScreen(),
+                ),
+              );
+            }, // Add this onPressed callback
           ),
         ),
         Padding(

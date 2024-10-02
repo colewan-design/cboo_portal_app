@@ -1,11 +1,11 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:cboo_portal_app/screens/employee_pay_screen.dart';
 import 'package:cboo_portal_app/screens/favorites_screen.dart';
 import 'package:cboo_portal_app/screens/home_screen.dart';
-import 'package:cboo_portal_app/screens/profile_screen.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:cboo_portal_app/screens/settings_screen.dart';
 
 class NavigationScreen extends StatefulWidget {
   const NavigationScreen({super.key});
@@ -21,8 +21,25 @@ class _NavigationScreenState extends State<NavigationScreen> {
     HomeScreen(),
     EmployeePayScreen(),
     FavoritesScreen(),
-    ProfileScreen(),
+    SettingsScreen(),
   ];
+
+  triggerNotification() {
+    try {
+      AwesomeNotifications().createNotification(
+        content: NotificationContent(
+          id: 1,
+          channelKey: 'basic_channel',
+          title: 'Payslip Update!',
+          body:
+              'Yay! Your Payslip for the period September 1-15 has been generated successfully!',
+        ),
+      );
+    } catch (error) {
+      debugPrint('Notification creation failed: $error');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,16 +52,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
         child: Container(
           color: Colors.tealAccent,
           child: FloatingActionButton(
-            onPressed: () {
-              AwesomeNotifications().createNotification(
-                content: NotificationContent(
-                    id: 1,
-                    channelKey: "basic_channel",
-                    title: "Payslip Update",
-                    body:
-                        "Yay! Your payslip for the period from September 1 to 15 has been generated!"),
-              );
-            },
+            onPressed: triggerNotification,
             child: Icon(
               Icons.qr_code,
               size: 20,
@@ -60,7 +68,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
           CupertinoIcons.home,
           CupertinoIcons.doc,
           CupertinoIcons.heart,
-          CupertinoIcons.profile_circled,
+          Icons.settings_outlined,
         ],
         inactiveColor: Colors.black,
         activeColor: Colors.teal,
